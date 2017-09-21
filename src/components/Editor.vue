@@ -35,20 +35,74 @@
             </el-form-item>
             <hr>
           </div>
-          <el-button type="success" v-on:click="addWorkHistory()" class="work-btn">AddWorkHistory</el-button>
+          <el-button type="success" v-on:click="addWorkHistory()" class="work-btn">Add</el-button>
         </el-form>
       </li>
       <li v-bind:class="{active: currentTab === 2}">
         <h2>学习经历</h2>
+        <el-form class="work-form">
+          <div v-for="(study, index) in studyInfo" class="work-item">
+            <i class="el-icon-circle-close work-close" v-on:click="removeStudy(index)"></i>
+            <el-form-item label="学校">
+              <el-input v-model="study.school" class="work-input"></el-input>
+            </el-form-item>
+            <el-form-item label="时间">
+              <el-input v-model="study.duration"></el-input>
+            </el-form-item>
+            <el-form-item label="学位">
+              <el-input v-model="study.degree"></el-input>
+            </el-form-item>
+            <hr>
+          </div>
+          <el-button type="success" v-on:click="addStudy()" class="work-btn">Add</el-button>
+        </el-form>
       </li>
       <li v-bind:class="{active: currentTab === 3}">
         <h2>项目经历</h2>
+        <el-form class="work-form">
+          <div v-for="(project, index) in projectInfo" class="work-item">
+            <i class="el-icon-circle-close work-close" v-on:click="removeProject(index)"></i>
+            <el-form-item label="项目名称">
+              <el-input v-model="project.name" class="work-input"></el-input>
+            </el-form-item>
+            <el-form-item label="工作内容">
+              <el-input v-model="project.content"></el-input>
+            </el-form-item>
+            <hr>
+          </div>
+          <el-button type="success" v-on:click="addProject()" class="work-btn">Add</el-button>
+        </el-form>
       </li>
       <li v-bind:class="{active: currentTab === 4}">
         <h2>获奖情况</h2>
+        <el-form class="work-form">
+          <div v-for="(prize, index) in prizeInfo" class="work-item">
+            <i class="el-icon-circle-close work-close" v-on:click="removePrize(index)"></i>
+            <el-form-item label="获奖情况">
+              <el-input v-model="prize.information" class="work-input"></el-input>
+            </el-form-item>
+          </div>
+          <el-button type="success" v-on:click="addPrize()" class="work-btn">Add</el-button>
+        </el-form>
       </li>
       <li v-bind:class="{active: currentTab === 5}">
         <h2>联系方式</h2>
+        <el-form class="work-form">
+          <div v-for="(contact, index) in contactInfo" class="work-item">
+            <i class="el-icon-circle-close work-close" v-on:click="removeContact(index)"></i>
+            <el-form-item label="邮箱">
+              <el-input v-model="contact.mail" class="work-input"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号码">
+              <el-input v-model="contact.phoneNumber"></el-input>
+            </el-form-item>
+            <el-form-item label="QQ">
+              <el-input v-model="contact.qq"></el-input>
+            </el-form-item>
+            <hr>
+          </div>
+          <el-button type="success" v-on:click="addContact()" class="work-btn">Add</el-button>
+        </el-form>
       </li>
     </ul>
   </div>
@@ -77,10 +131,8 @@
             fill: white;
           }
         }
-
       }
     }
-
     .content {
       width: 75%;
       height: 100%;
@@ -98,7 +150,6 @@
           margin: 2rem;
           font-size: 2rem;
         }
-
         .work-form{
           width: 80%;
         }
@@ -114,7 +165,6 @@
         hr{
           margin-bottom: 2rem;
         }
-
         .work-item{
           position: relative;
           .work-close{
@@ -127,7 +177,6 @@
       }
     }
   }
-
   .icon {
     width: 4em;
     height: 4em;
@@ -150,6 +199,18 @@
         },
         workHistory: [
           {company: '', content: ''}
+        ],
+        studyInfo: [
+          {school: '', duration: '', degree: ''}
+        ],
+        projectInfo: [
+          {name: '', content: ''}
+        ],
+        prizeInfo: [
+          {information: ''}
+        ],
+        contactInfo: [
+          {mail: '', phoneNumber: '', qq: ''}
         ]
       }
     },
@@ -161,8 +222,44 @@
         })
       },
       removeWorkHistory(index){
-        console.log(1);
         this.workHistory.splice(index, 1);
+      },
+      addStudy(){
+        this.studyInfo.push({
+          school: '',
+          duration: '',
+          degree: ''
+        })
+      },
+      removeStudy(index){
+        this.studyInfo.splice(index, 1);
+      },
+      addProject(){
+        this.projectInfo.push({
+          name: '',
+          content: ''
+        })
+      },
+      removeProject(index){
+        this.projectInfo.splice(index, 1);
+      },
+      addPrize(){
+        this.prizeInfo.push({
+          information: ''
+        })
+      },
+      removePrize(index){
+        this.prizeInfo.splice(index, 1);
+      },
+      addContact(){
+        this.contactInfo.push({
+          mail: '',
+          phoneNumber: '',
+          qq: ''
+        })
+      },
+      removeContact(index){
+        this.contactInfo.splice(index, 1);
       }
     }
   }
