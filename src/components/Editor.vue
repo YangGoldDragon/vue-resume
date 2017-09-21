@@ -8,56 +8,129 @@
       </li>
     </ul>
     <ul class="content">
-      <li v-bind:class="{active: currentTab === 0}">tab1</li>
-      <li v-bind:class="{active: currentTab === 1}">tab2</li>
-      <li v-bind:class="{active: currentTab === 2}">tab3</li>
-      <li v-bind:class="{active: currentTab === 3}">tab4</li>
-      <li v-bind:class="{active: currentTab === 4}">tab5</li>
-      <li v-bind:class="{active: currentTab === 5}">tab6</li>
+      <li v-bind:class="{active: currentTab === 0}">
+        <h2>个人信息</h2>
+        <el-form>
+          <el-form-item label="姓名">
+            <el-input v-model="profile.name"></el-input>
+          </el-form-item>
+          <el-form-item label="城市">
+            <el-input v-model="profile.city"></el-input>
+          </el-form-item>
+          <el-form-item label="出生年月">
+            <el-input v-model="profile.birth"></el-input>
+          </el-form-item>
+        </el-form>
+      </li>
+      <li v-bind:class="{active: currentTab === 1}">
+        <h2>工作经历</h2>
+        <el-form class="work-form">
+          <div v-for="(work, index) in workHistory" class="work-item">
+            <i class="el-icon-circle-close work-close" v-on:click="removeWorkHistory(index)"></i>
+            <el-form-item label="公司">
+              <el-input v-model="work.company" class="work-input"></el-input>
+            </el-form-item>
+            <el-form-item label="工作内容">
+              <el-input v-model="work.content"></el-input>
+            </el-form-item>
+            <hr>
+          </div>
+          <el-button type="success" v-on:click="addWorkHistory()" class="work-btn">AddWorkHistory</el-button>
+        </el-form>
+      </li>
+      <li v-bind:class="{active: currentTab === 2}">
+        <h2>学习经历</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 3}">
+        <h2>项目经历</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 4}">
+        <h2>获奖情况</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 5}">
+        <h2>联系方式</h2>
+      </li>
     </ul>
   </div>
 </template>
 
 <style lang="scss">
-  #editor{
+  #editor {
     display: flex;
-    .tab{
+    .tab {
       width: 25%;
       height: 100%;
       text-align: center;
       border-right: 1px solid rgb(68, 68, 68);
-      li{
+      li {
         border-bottom: 1px solid rgb(68, 68, 68);
         height: calc(100% / 6);
         display: flex;
         align-items: center;
         justify-content: center;
-        &:last-child{
-           border: none;
+        &:last-child {
+          border: none;
         }
-        &.active{
-           background: #13ce66;
-           .icon{
-             fill: white;
-           }
+        &.active {
+          background: #13ce66;
+          .icon {
+            fill: white;
+          }
         }
+
       }
     }
 
-    .content{
+    .content {
       width: 75%;
       height: 100%;
-      li{
+      overflow: auto;
+      li {
+        width: 100%;
         display: none;
-        &.active{
-          display: block;
+        &.active {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        h2{
+          margin: 2rem;
+          font-size: 2rem;
+        }
+
+        .work-form{
+          width: 80%;
+        }
+        input:focus{
+          border: 1px solid #13ce66;
+        }
+        :nth-child(2){
+          .work-btn{
+            display: block;
+            margin: 0 auto;
+          }
+        }
+        hr{
+          margin-bottom: 2rem;
+        }
+
+        .work-item{
+          position: relative;
+          .work-close{
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 2;
+          }
         }
       }
     }
   }
 
   .icon {
-    width: 4em; height: 4em;
+    width: 4em;
+    height: 4em;
     vertical-align: -0.15em;
     fill: #373737;
     overflow: hidden;
@@ -66,10 +139,30 @@
 
 <script>
   export default {
-    data(){
+    data() {
       return {
         currentTab: 0,
-        icons: ['shenfenzheng', 'work', 'book', 'heart', 'jiangbei', 'phone']
+        icons: ['shenfenzheng', 'work', 'book', 'heart', 'jiangbei', 'phone'],
+        profile:{
+          name: '',
+          city: '',
+          birth: ''
+        },
+        workHistory: [
+          {company: '', content: ''}
+        ]
+      }
+    },
+    methods:{
+      addWorkHistory(){
+        this.workHistory.push({
+          company: '',
+          content: ''
+        })
+      },
+      removeWorkHistory(index){
+        console.log(1);
+        this.workHistory.splice(index, 1);
       }
     }
   }

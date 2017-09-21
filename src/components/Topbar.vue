@@ -6,7 +6,7 @@
     </div>
     <div class="actions">
       <el-button type="success">注册</el-button>
-      <el-button>登录</el-button>
+      <el-button :plain="true" type="success">登录</el-button>
     </div>
   </div>
 </template>
@@ -26,6 +26,9 @@
       h1{
         font-size: 3rem;
       }
+    }
+    .actions{
+
     }
   }
 </style>
